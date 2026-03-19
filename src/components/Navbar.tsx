@@ -8,18 +8,12 @@ export default function Navbar() {
   return (
     <header style={header}>
       <div style={container}>
+        {/* LOGO */}
         <a href="/" style={logo}>
           UKIGT
         </a>
 
-        <button
-          onClick={() => setOpen(!open)}
-          style={menuButton}
-          aria-label="Open menu"
-        >
-          ☰
-        </button>
-
+        {/* DESKTOP MENU */}
         <nav style={desktopNav}>
           <a href="/" style={link}>Home</a>
           <a href="/about" style={link}>About</a>
@@ -27,8 +21,14 @@ export default function Navbar() {
           <a href="/programmes" style={link}>Programmes</a>
           <a href="/contact" style={cta}>Contact</a>
         </nav>
+
+        {/* MOBILE BUTTON */}
+        <button onClick={() => setOpen(!open)} style={menuButton}>
+          ☰
+        </button>
       </div>
 
+      {/* MOBILE MENU */}
       {open && (
         <div style={mobileMenu}>
           <a href="/" style={mobileLink}>Home</a>
@@ -42,12 +42,14 @@ export default function Navbar() {
   );
 }
 
+/* STYLES */
+
 const header: React.CSSProperties = {
   position: "fixed",
   top: 0,
   width: "100%",
   zIndex: 1000,
-  background: "rgba(10, 15, 25, 0.92)",
+  background: "rgba(10, 15, 25, 0.9)",
   backdropFilter: "blur(10px)",
   borderBottom: "1px solid rgba(255,255,255,0.05)",
 };
@@ -69,58 +71,59 @@ const logo: React.CSSProperties = {
   letterSpacing: "0.12em",
 };
 
+/* DESKTOP MENU (hidden on small screens) */
+const desktopNav: React.CSSProperties = {
+  display: "none",
+  gap: "28px",
+  alignItems: "center",
+};
+
+/* MOBILE BUTTON */
 const menuButton: React.CSSProperties = {
-  background: "transparent",
+  background: "none",
   border: "none",
   color: "#E6F0FA",
-  fontSize: "28px",
+  fontSize: "26px",
   cursor: "pointer",
 };
 
-const desktopNav: React.CSSProperties = {
-  display: "none",
-};
-
+/* LINKS */
 const link: React.CSSProperties = {
   color: "#E6F0FA",
   textDecoration: "none",
   fontSize: "14px",
-  fontWeight: 500,
 };
 
 const cta: React.CSSProperties = {
   background: "#D4AF37",
   color: "#07111F",
-  textDecoration: "none",
   padding: "10px 18px",
   borderRadius: "999px",
+  textDecoration: "none",
   fontWeight: 700,
-  fontSize: "14px",
 };
 
+/* MOBILE MENU */
 const mobileMenu: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   gap: "18px",
-  padding: "18px 20px 22px",
-  background: "rgba(10, 15, 25, 0.98)",
-  borderTop: "1px solid rgba(255,255,255,0.05)",
+  padding: "20px",
+  background: "#0A0A0A",
 };
 
 const mobileLink: React.CSSProperties = {
   color: "#E6F0FA",
   textDecoration: "none",
   fontSize: "16px",
-  fontWeight: 500,
 };
 
 const mobileCta: React.CSSProperties = {
   background: "#D4AF37",
   color: "#07111F",
-  textDecoration: "none",
-  padding: "12px 18px",
+  padding: "12px",
   borderRadius: "999px",
-  fontWeight: 700,
-  fontSize: "15px",
   textAlign: "center",
+  textDecoration: "none",
+  fontWeight: 700,
 };
