@@ -1,53 +1,62 @@
-import Container from "@/components/Container";
-import Reveal from "@/components/Reveal";
-import Link from "next/link";
-import Button from "@/components/Button";
+import Navbar from "../../components/Navbar";
 
 export default function AboutPage() {
   return (
-    <section className="py-20 bg-paper">
-      <Container>
-        <Reveal>
-          <h1 className="text-4xl font-semibold text-ink">About Us</h1>
+    <>
+      <Navbar />
 
-          <p className="mt-5 max-w-3xl text-muted leading-relaxed">
-            UK Inbound Ground Transport provides structured, reliable and corporate‑grade touring
-            logistics for inbound operators across England, Scotland, Wales and Ireland. Our mission
-            is to deliver dependable, professional and precisely managed ground‑transport
-            operations that strengthen your touring programmes.
+      <main style={{ paddingTop: "90px", fontFamily: "Arial" }}>
+        <section style={hero}>
+          <h1 style={title}>About UKIGT</h1>
+          <p style={subtitle}>
+            A structured, premium transport partner for inbound UK & Ireland touring programmes.
           </p>
-        </Reveal>
+        </section>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {[
-            {
-              t: "Our Mission",
-              d: "To deliver dependable, high‑quality transport operations for inbound touring partners."
-            },
-            {
-              t: "Our Approach",
-              d: "Clear communication, structured routing, balanced pacing and reliable daily execution."
-            },
-            {
-              t: "Coverage",
-              d: "Nationwide UK operations with seamless touring continuity into Ireland."
-            }
-          ].map((item) => (
-            <Reveal key={item.t}>
-              <div className="rounded-2xl bg-white border border-black/10 p-6 shadow-sm">
-                <p className="text-steel font-semibold text-lg">{item.t}</p>
-                <p className="mt-2 text-sm text-muted">{item.d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <section style={section}>
+          <div style={container}>
+            <h2 style={heading}>Who We Are</h2>
+            <p style={text}>
+              UK Inbound Ground Transport is a specialist provider supporting international tour operators,
+              DMCs and travel brands across the UK and Ireland.
+            </p>
 
-        <div className="mt-10">
-          /contact
-            <Button>Contact Operations</Button>
-          </Link>
-        </div>
-      </Container>
-    </section>
+            <p style={text}>
+              Our focus is on structured delivery, operational consistency and premium brand presentation.
+              We ensure every touring programme runs with clarity, precision and reliability.
+            </p>
+          </div>
+        </section>
+
+        <section style={sectionAlt}>
+          <div style={container}>
+            <h2 style={heading}>Our Approach</h2>
+            <p style={text}>
+              We build transport operations around repeatability, timing accuracy and seamless coordination.
+              This ensures every departure delivers the same high-quality experience.
+            </p>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
+
+/* STYLES */
+const hero = {
+  padding: "120px 20px",
+  textAlign: "center" as const,
+  background: "#0B1728",
+  color: "white",
+};
+
+const title = { fontSize: "48px", color: "#D4AF37" };
+const subtitle = { opacity: 0.85 };
+
+const section = { padding: "80px 20px" };
+const sectionAlt = { padding: "80px 20px", background: "#EAF3FF" };
+
+const container = { maxWidth: "900px", margin: "0 auto" };
+
+const heading = { fontSize: "32px", marginBottom: "20px" };
+const text = { lineHeight: 1.8, color: "#334155" };
