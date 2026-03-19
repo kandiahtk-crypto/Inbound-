@@ -1,57 +1,89 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth < 900);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  const closeMenu = () => setOpen(false);
 
   return (
     <header style={header}>
       <div style={container}>
-        {/* LOGO */}
         <a href="/" style={logo}>
           UKIGT
         </a>
 
-        {/* DESKTOP MENU */}
-        <nav style={desktopNav}>
-          <a href="/" style={link}>Home</a>
-          <a href="/about" style={link}>About</a>
-          <a href="/services" style={link}>Services</a>
-          <a href="/programmes" style={link}>Programmes</a>
-          <a href="/contact" style={cta}>Contact</a>
-        </nav>
-
-        {/* MOBILE BUTTON */}
-        <button onClick={() => setOpen(!open)} style={menuButton}>
-          ☰
-        </button>
+        {isMobile ? (
+          <button
+            onClick={() => setOpen(!open)}
+            style={menuButton}
+            aria-label="Toggle menu"
+          >
+            {open ? "✕" : "☰"}
+          </button>
+        ) : (
+          <nav style={desktopNav}>
+            <a href="/" style={link}>
+              Home
+            </a>
+            <a href="/about" style={link}>
+              About
+            </a>
+            <a href="/services" style={link}>
+              Services
+            </a>
+            <a href="/programmes" style={link}>
+              Programmes
+            </a>
+            <a href="/contact" style={cta}>
+              Contact
+            </a>
+          </nav>
+        )}
       </div>
 
-      {/* MOBILE MENU */}
-      {open && (
+      {isMobile && open && (
         <div style={mobileMenu}>
-          <a href="/" style={mobileLink}>Home</a>
-          <a href="/about" style={mobileLink}>About</a>
-          <a href="/services" style={mobileLink}>Services</a>
-          <a href="/programmes" style={mobileLink}>Programmes</a>
-          <a href="/contact" style={mobileCta}>Contact</a>
+          <a href="/" style={mobileLink} onClick={closeMenu}>
+            Home
+          </a>
+          <a href="/about" style={mobileLink} onClick={closeMenu}>
+            About
+          </a>
+          <a href="/services" style={mobileLink} onClick={closeMenu}>
+            Services
+          </a>
+          <a href="/programmes" style={mobileLink} onClick={closeMenu}>
+            Programmes
+          </a>
+          <a href="/contact" style={mobileCta} onClick={closeMenu}>
+            Contact
+          </a>
         </div>
       )}
     </header>
   );
 }
 
-/* STYLES */
-
 const header: React.CSSProperties = {
   position: "fixed",
   top: 0,
+  left: 0,
   width: "100%",
   zIndex: 1000,
-  background: "rgba(10, 15, 25, 0.9)",
-  backdropFilter: "blur(10px)",
-  borderBottom: "1px solid rgba(255,255,255,0.05)",
+  background: "rgba(7, 17, 31, 0.88)",
+  backdropFilter: "blur(14px)",
+  borderBottom: "1px solid rgba(255,255,255,0.08)",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.18)",
 };
 
 const container: React.CSSProperties = {
@@ -71,59 +103,63 @@ const logo: React.CSSProperties = {
   letterSpacing: "0.12em",
 };
 
-/* DESKTOP MENU (hidden on small screens) */
 const desktopNav: React.CSSProperties = {
-  display: "none",
-  gap: "28px",
+  display: "flex",
   alignItems: "center",
+  gap: "28px",
 };
 
-/* MOBILE BUTTON */
-const menuButton: React.CSSProperties = {
-  background: "none",
-  border: "none",
-  color: "#E6F0FA",
-  fontSize: "26px",
-  cursor: "pointer",
-};
-
-/* LINKS */
 const link: React.CSSProperties = {
   color: "#E6F0FA",
   textDecoration: "none",
   fontSize: "14px",
+  fontWeight: 500,
+  letterSpacing: "0.04em",
 };
 
 const cta: React.CSSProperties = {
-  background: "#D4AF37",
+  background: "linear-gradient(135deg, #D4AF37, #F5D76E)",
   color: "#07111F",
-  padding: "10px 18px",
-  borderRadius: "999px",
   textDecoration: "none",
+  padding: "11px 18px",
+  borderRadius: "999px",
   fontWeight: 700,
+  fontSize: "14px",
+  boxShadow: "0 10px 24px rgba(212,175,55,0.24)",
 };
 
-/* MOBILE MENU */
+const menuButton: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
+  color: "#E6F0FA",
+  fontSize: "28px",
+  lineHeight: 1,
+  cursor: "pointer",
+};
+
 const mobileMenu: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
-  gap: "18px",
-  padding: "20px",
-  background: "#0A0A0A",
+  gap: "16px",
+  padding: "18px 20px 22px",
+  background: "rgba(7, 17, 31, 0.98)",
+  borderTop: "1px solid rgba(255,255,255,0.06)",
 };
 
 const mobileLink: React.CSSProperties = {
   color: "#E6F0FA",
   textDecoration: "none",
   fontSize: "16px",
+  fontWeight: 500,
 };
 
 const mobileCta: React.CSSProperties = {
-  background: "#D4AF37",
+  background: "linear-gradient(135deg, #D4AF37, #F5D76E)",
   color: "#07111F",
-  padding: "12px",
-  borderRadius: "999px",
-  textAlign: "center",
   textDecoration: "none",
+  padding: "12px 18px",
+  borderRadius: "999px",
   fontWeight: 700,
+  fontSize: "15px",
+  textAlign: "center",
 };
